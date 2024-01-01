@@ -22,6 +22,7 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/communicator"
 	"github.com/hashicorp/packer-plugin-sdk/multistep/commonsteps"
 	packersdk "github.com/hashicorp/packer-plugin-sdk/packer"
+	"github.com/hashicorp/packer-plugin-sdk/shutdowncommand"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
 	"github.com/hashicorp/packer-plugin-sdk/template/interpolate"
 	"github.com/hashicorp/packer-plugin-sdk/uuid"
@@ -44,11 +45,12 @@ import (
 // If no communicator is defined, an SSH key is generated for use, and is used
 // in the image's Cloud-Init settings for provisioning.
 type Config struct {
-	common.PackerConfig    `mapstructure:",squash"`
-	commonsteps.HTTPConfig `mapstructure:",squash"`
-	bootcommand.BootConfig `mapstructure:",squash"`
-	BootKeyInterval        time.Duration       `mapstructure:"boot_key_interval"`
-	Comm                   communicator.Config `mapstructure:",squash"`
+	common.PackerConfig            `mapstructure:",squash"`
+	commonsteps.HTTPConfig         `mapstructure:",squash"`
+	bootcommand.BootConfig         `mapstructure:",squash"`
+	shutdowncommand.ShutdownConfig `mapstructure:",squash"`
+	BootKeyInterval                time.Duration       `mapstructure:"boot_key_interval"`
+	Comm                           communicator.Config `mapstructure:",squash"`
 
 	// URL to the Proxmox API, including the full path,
 	// so `https://<server>:<port>/api2/json` for example.
